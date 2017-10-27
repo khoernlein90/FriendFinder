@@ -138,7 +138,7 @@
                 </div>
                 <div class="modal-body">
                     <h2 id="matchName"></h2>
-                    <img id="matchImg">
+                    <img id="matchImg" src="" alt="">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -154,33 +154,20 @@
     var nameInput = $("#nameInput").val();
     var photoInput = $("#imageURL").val()
 
-    var userData = {
-        name: $("#nameInput").val().trim(),
-        photo: $("#imageURL").val().trim(),
-        scores: [$("#q1").val().trim(), $("#q2").val().trim(), $("#q3").val().trim(), $("#q4").val().trim(), $("#q5").val().trim(), $("#q6").val().trim(), $("#q7").val().trim(), $("#q8").val().trim(), $("#q9").val().trim(), $("#q10").val().trim()],
-    };
-
-
-
     $("#submitBtn").on("click", function(event) {
         event.preventDefault();
-
+        var userData = {
+            name: $("#nameInput").val().trim(),
+            photo: $("#imageURL").val().trim(),
+            scores: [$("#q1").val().trim(), $("#q2").val().trim(), $("#q3").val().trim(), $("#q4").val().trim(), $("#q5").val().trim(), $("#q6").val().trim(), $("#q7").val().trim(), $("#q8").val().trim(), $("#q9").val().trim(), $("#q10").val().trim()],
+        };
         console.log(userData)
-        if (nameInput === "" || photoInput === "") {
-            $("#myModal").modal("hide");
-
-            alert("Please fill out all form areas.")
-        }
         $.post(currentURL + "/api/friends", userData, function(data) {
             console.log(data)
             $("#matchName").text(data.name);
             $('#matchImg').attr("src", data.photo);
-
         })
-
     })
-
-
 
     $('#myModal').on('hidden.bs.modal', function() {
         location.reload();
